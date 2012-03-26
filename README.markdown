@@ -23,6 +23,8 @@
 
 * [libxml2](http://xmlsoft.org/)
 
+* [libxslt](http://xmlsoft.org/XSLT/)
+
 * [libcurl](http://curl.haxx.se/)
 
 * [libmicrohttpd](http://www.gnu.org/software/libmicrohttpd/)
@@ -58,7 +60,8 @@
 
     fedora15# yum install autoconf automake gcc-c++ glib2-devel libqb-devel \
               dbus-glib-devel libxml2-devel pacemaker-libs-devel libtool-ltdl-devel \
-              qpid-cpp-client-devel qpid-qmf-devel libmicrohttpd-devel libcurl-devel
+              qpid-cpp-client-devel qpid-qmf-devel libmicrohttpd-devel libcurl-devel \
+              libxslt-devel
     fedora15# make rpm
     fedora15# rpm -ivh $(arch)/*.rpm
 
@@ -71,7 +74,7 @@ source.  Note on 64 bit systems, qpid does not autodetect the libdir is
 
     fedora14# yum install autoconf automake gcc-c++ glib2-devel \
               dbus-glib-devel libxml2-devel pacemaker-libs-devel libtool-ltdl-devel \
-              libmicrohttpd-devel libcurl-devel
+              libmicrohttpd-devel libcurl-devel libxslt-devel
 
     fedora14# cd libqb
     fedora14# make rpm
@@ -100,18 +103,18 @@ Description of the program flow given some different scenarios:
 ### Create new deployment
 
 1. Cloud management software sends cpe the assembly & service config
-   in XML (via QMF). Note very simerlar to what pacemaker PE wants.
+   in XML (via QMF). Note very similar to what pacemaker PE wants.
 2. CPE asks upstart/systemd to start a new DPE.
 3. CPE stores the config somewhere (DB or file)
 4. CPE waits for the DPE QMF agent to be available, then asks it to
-   load the config and managemt the deployment.
+   load the config and manage the deployment.
 5. DPE gathers config + state and sends it to the PE
 6. DPE performs the actions (using matahari) as instructed by PE
 
 
 ### Destroy deployment
 
-1. Cloud managemt software tells CPE to destroy a deployment
+1. Cloud management software tells CPE to destroy a deployment
 2. CPE asks upstart/systemd to stop the DPE and deletes the config
 
 
@@ -136,7 +139,7 @@ Description of the program flow given some different scenarios:
 ### User modifies the deployment configuration
 
 1. Cloud management software sends cpe the assembly & service config
-   in XML (via QMF). Note very simerlar to what pacemaker PE wants.
+   in XML (via QMF). Note very similar to what pacemaker PE wants.
 2. CPE sees the DPE is already running.
 3. CPE stores the config somewhere (DB or file)
 4. CPE then notifys the DPE that the config has changed.
